@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="!--!type-->" version="!--!forVersion-->" method="!--!method-->" _client="" _group="">
+	<name><!--@name--></name>
+	<author><!--@author--></author>
+	<authorEmail><!--@authorEmail--></authorEmail>
+	<authorUrl><!--@authorUrl--></authorUrl>
+	<copyright><!--@copyright--></copyright>
+	<license><!--@license--></license>
+	<version><!--@version--></version>
+	<creationDate><!--@creationDate--></creationDate>
+	<description><!--@description--></description>
+<!--#files-->
+<!--#media-->
+<!--#scriptfile-->
+<!--#updateservers-->
+<!--#dependencies-->
+</extension> 

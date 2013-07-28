@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Joomla development tools" default="dropdatabase" basedir="../">
+    <target name="dropdatabase">
+        <property file="/properties/old/system.properties" />
+        <property file="/properties/old/project.properties" />
+        <property file="/properties/old/userinfo.properties" />
+        <exec command="mysqladmin --host=localhost --password=${local.db.password} --user=${local.db.user} --force drop ${db.name}" dir="." />
+        <echo>The database ${db.name} is droped</echo>
+    </target>
+</project>

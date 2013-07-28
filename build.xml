@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Joomla development tools" default="prepare" basedir=".">
+    <import file="tasks/prepare.xml" />
+    <import file="tasks/publish.xml" />
+    <import file="tasks/dropdatabase.xml" />
+    <import file="tasks/extensions.xml" />
+</project>

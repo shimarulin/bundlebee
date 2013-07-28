@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Joomla development tools" default="publish" basedir="../">
+
+    <!-- ========================================= -->
+    <!-- Publish the site on a development server. -->
+    <!-- ========================================= -->
+
+    <target name="publish">
+        <property file="/properties/old/system.properties" />
+        <property file="/properties/old/project.properties" />
+        <property file="/properties/old/userinfo.properties" />
+        <property name="path.default.db.dump" value="${path.build}/${dir.build}.sql" />
+        <resolvepath propertyName="dir.bundle.absolute_path" file="${project.basedir}/${dir.bundle}"/>
+        <symlink target="${dir.bundle.absolute_path}" link="${path.server}/${domain.name}" />
+        <mkdir dir="logs" />
+        <exec command="setfacl -M ./properties/acl/public_html.acl logs" dir="." />
+        <exec command="mysqladmin --host=localhost --password=${local.db.password} --user=${local.db.user} create ${db.name}" dir="." />
+        <pdosqlexec url="mysql:host=localhost;dbname=${db.name}" userid="${local.db.user}" password="${local.db.password}">
+            <transaction src="${path.default.db.dump}"/>
+            <formatter type="xml" outfile="logs/sqlexec.xml"/>
+        </pdosqlexec>
+    </target>
+</project>

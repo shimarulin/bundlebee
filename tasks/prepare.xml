@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Joomla development tools" default="prepare" basedir="../">
+
+    <!-- ================================== -->
+    <!-- Prepare bundle for Joomla project. -->
+    <!-- ================================== -->
+
+    <target name="joomla-prepare">
+        <property file="properties/joomla.properties" />
+        <mkdir dir="${dir.bundle}" />
+        <exec command="setfacl -M ./properties/acl/public_html.acl ${dir.bundle}" dir="." />
+
+        <!-- Start make administrator dir  -->
+        <mkdir dir="${dir.bundle}/administrator/cache" />
+        <touch file="${dir.bundle}/administrator/cache/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/components" />
+        <symlink link="${dir.bundle}/administrator/components">
+            <fileset dir="${path.build}/administrator/components" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/administrator/components/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/help/en-GB" />
+        <symlink link="${dir.bundle}/administrator/help/en-GB">
+            <fileset dir="${path.build}/administrator/help/en-GB" includes="*" excludes="index.html" />
+        </symlink>
+        <copy file="${path.build}/administrator/help/helpsites.xml" tofile="${dir.bundle}/administrator/help/helpsites.xml" />
+        <touch file="${dir.bundle}/administrator/help/index.html" />
+        <touch file="${dir.bundle}/administrator/help/en-GB/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/includes" />
+        <symlink link="${dir.bundle}/administrator/includes">
+            <fileset dir="${path.build}/administrator/includes" includes="*.php" />
+        </symlink>
+        <touch file="${dir.bundle}/administrator/includes/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/language/en-GB" />
+        <symlink link="${dir.bundle}/administrator/language/en-GB">
+            <fileset dir="${path.build}/administrator/language/en-GB" includes="*" excludes="index.html" />
+        </symlink>
+        <mkdir dir="${dir.bundle}/administrator/language/overrides" />
+        <mkdir dir="${dir.bundle}/administrator/language/ru-RU" />
+        <symlink link="${dir.bundle}/administrator/language/ru-RU">
+            <fileset dir="${path.build}/administrator/language/ru-RU" includes="*" excludes="index.html" />
+        </symlink>
+        <touch file="${dir.bundle}/administrator/language/index.html" />
+        <touch file="${dir.bundle}/administrator/language/en-GB/index.html" />
+        <touch file="${dir.bundle}/administrator/language/overrides/index.html" />
+        <touch file="${dir.bundle}/administrator/language/ru-RU/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/manifests" />
+        <copy todir="${dir.bundle}/administrator/manifests">
+            <fileset dir="${path.build}/administrator/manifests" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </copy>
+        <touch file="${dir.bundle}/administrator/manifests/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/modules" />
+        <symlink link="${dir.bundle}/administrator/modules">
+            <fileset dir="${path.build}/administrator/modules" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/administrator/modules/index.html" />
+
+        <mkdir dir="${dir.bundle}/administrator/templates" />
+        <symlink link="${dir.bundle}/administrator/templates">
+            <fileset dir="${path.build}/administrator/templates" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/administrator/templates/index.html" />
+
+        <copy file="${path.build}/administrator/index.php" tofile="${dir.bundle}/administrator/index.php" overwrite="true"/>
+        <!-- End make administrator dir  -->
+
+
+        <!-- Start make cache dir  -->
+        <mkdir dir="${dir.bundle}/cache" />
+        <touch file="${dir.bundle}/cache/index.html" />
+        <!-- End make cache dir  -->
+
+
+        <!-- Start make cli dir  -->
+        <mkdir dir="${dir.bundle}/cli" />
+        <symlink link="${dir.bundle}/cli">
+            <fileset dir="${path.build}/cli" includes="*.php" />
+        </symlink>
+        <touch file="${dir.bundle}/cli/index.html" />
+        <!-- End make cli dir  -->
+
+
+        <!-- Start make components dir  -->
+        <mkdir dir="${dir.bundle}/components" />
+        <symlink link="${dir.bundle}/components">
+            <fileset dir="${path.build}/components" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/components/index.html" />
+        <!-- End make components dir  -->
+
+
+        <!-- Start make images dir  -->
+        <mkdir dir="${dir.bundle}/images" />
+        <touch file="${dir.bundle}/images/index.html" />
+        <!-- 	Virtuemart dir	 -->
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/category/resized" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/category/resized/index.html" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/category/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/forSale/invoices" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/forSale/invoices/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/forSale/resized" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/forSale/resized/index.html" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/forSale/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/manufacturer/resized" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/manufacturer/resized/index.html" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/manufacturer/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/payment" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/payment/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/product/resized" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/product/resized/index.html" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/product/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/shipment" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/shipment/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/typeless" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/typeless/index.html" />
+        <mkdir dir="${dir.bundle}/images/stories/virtuemart/vendor/resized" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/vendor/resized/index.html" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/vendor/index.html" />
+        <touch file="${dir.bundle}/images/stories/virtuemart/index.html" />
+        <touch file="${dir.bundle}/images/stories/index.html" />
+        <!-- End make images dir  -->
+
+
+        <!-- Start make includes dir  -->
+        <mkdir dir="${dir.bundle}/includes" />
+        <symlink link="${dir.bundle}/includes">
+            <fileset dir="${path.build}/includes" includes="*.php" />
+        </symlink>
+        <touch file="${dir.bundle}/includes/index.html" />
+        <!-- End make includes dir  -->
+
+
+        <!-- Start make language dir  -->
+        <mkdir dir="${dir.bundle}/language/en-GB" />
+        <symlink link="${dir.bundle}/language/en-GB">
+            <fileset dir="${path.build}/language/en-GB" includes="*" excludes="index.html" />
+        </symlink>
+        <mkdir dir="${dir.bundle}/language/overrides" />
+        <mkdir dir="${dir.bundle}/language/ru-RU" />
+        <symlink link="${dir.bundle}/language/ru-RU">
+            <fileset dir="${path.build}/language/ru-RU" includes="*" excludes="index.html" />
+        </symlink>
+        <touch file="${dir.bundle}/language/index.html" />
+        <touch file="${dir.bundle}/language/en-GB/index.html" />
+        <touch file="${dir.bundle}/language/overrides/index.html" />
+        <touch file="${dir.bundle}/language/ru-RU/index.html" />
+        <!-- End make language dir  -->
+
+
+        <!-- Start make libraries dir  -->
+        <mkdir dir="${dir.bundle}/libraries" />
+        <symlink link="${dir.bundle}/libraries">
+            <fileset dir="${path.build}/libraries" includes="cms phpmailer phputf8 simplepie *.php" />
+        </symlink>
+
+        <mkdir dir="${dir.bundle}/libraries/joomla" />
+        <symlink link="${dir.bundle}/libraries/joomla">
+            <fileset dir="${path.build}/libraries/joomla" includes="*" excludes="index.html document" />
+        </symlink>
+        <touch file="${dir.bundle}/libraries/joomla/index.html" />
+
+        <mkdir dir="${dir.bundle}/libraries/joomla/document" />
+        <symlink link="${dir.bundle}/libraries/joomla/document">
+            <fileset dir="${path.build}/libraries/joomla/document" includes="*" excludes="index.html" />
+        </symlink>
+        <touch file="${dir.bundle}/libraries/joomla/document/index.html" />
+
+        <touch file="${dir.bundle}/libraries/index.html" />
+        <!-- End make libraries dir  -->
+
+
+        <!-- Start make logs dir  -->
+        <mkdir dir="${dir.bundle}/logs" />
+        <touch file="${dir.bundle}/logs/index.html" />
+        <!-- End make logs dir  -->
+
+
+        <!-- Start make media dir  -->
+        <mkdir dir="${dir.bundle}/media" />
+        <symlink link="${dir.bundle}/media">
+            <fileset dir="${path.build}/media" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/media/index.html" />
+        <!-- End make media dir  -->
+
+
+        <!-- Start make modules dir  -->
+        <mkdir dir="${dir.bundle}/modules" />
+        <symlink link="${dir.bundle}/modules">
+            <fileset dir="${path.build}/modules" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/modules/index.html" />
+        <!-- End make modules dir  -->
+
+
+        <!-- Start make plugins dir  -->
+        <mkdir dir="${dir.bundle}/plugins/authentication" />
+        <mkdir dir="${dir.bundle}/plugins/captcha" />
+        <mkdir dir="${dir.bundle}/plugins/content" />
+        <mkdir dir="${dir.bundle}/plugins/editors" />
+        <mkdir dir="${dir.bundle}/plugins/editors-xtd" />
+        <mkdir dir="${dir.bundle}/plugins/extension" />
+        <mkdir dir="${dir.bundle}/plugins/finder" />
+        <mkdir dir="${dir.bundle}/plugins/quickicon" />
+        <mkdir dir="${dir.bundle}/plugins/search" />
+        <mkdir dir="${dir.bundle}/plugins/system" />
+        <mkdir dir="${dir.bundle}/plugins/user" />
+
+        <symlink link="${dir.bundle}/plugins/authentication">
+            <fileset dir="${path.build}/plugins/authentication" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/authentication/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/captcha">
+            <fileset dir="${path.build}/plugins/captcha" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/captcha/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/content">
+            <fileset dir="${path.build}/plugins/content" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/content/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/editors">
+            <fileset dir="${path.build}/plugins/editors" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/editors/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/editors-xtd">
+            <fileset dir="${path.build}/plugins/editors-xtd" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/editors-xtd/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/extension">
+            <fileset dir="${path.build}/plugins/extension" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/extension/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/finder">
+            <fileset dir="${path.build}/plugins/finder" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/finder/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/quickicon">
+            <fileset dir="${path.build}/plugins/quickicon" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/quickicon/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/search">
+            <fileset dir="${path.build}/plugins/search" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/search/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/system">
+            <fileset dir="${path.build}/plugins/system" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/system/index.html" />
+
+        <symlink link="${dir.bundle}/plugins/user">
+            <fileset dir="${path.build}/plugins/user" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/plugins/user/index.html" />
+
+        <touch file="${dir.bundle}/plugins/index.html" />
+        <!-- End make plugins dir  -->
+
+
+        <!-- Start make templates dir  -->
+        <mkdir dir="${dir.bundle}/templates" />
+        <symlink link="${dir.bundle}/templates">
+            <fileset dir="${path.build}/templates" includes="*">
+                <type type="dir"/>
+            </fileset>
+        </symlink>
+        <touch file="${dir.bundle}/templates/index.html" />
+        <!-- End make templates dir  -->
+
+
+        <!-- Start make tmp dir  -->
+        <mkdir dir="${dir.bundle}/tmp" />
+        <touch file="${dir.bundle}/tmp/index.html" />
+        <!-- End make tmp dir  -->
+
+
+        <!-- Start make root files  -->
+        <copy todir="${dir.bundle}">
+            <fileset dir="${path.build}" includes="*" excludes="*.sql">
+                <type type="file"/>
+            </fileset>
+        </copy>
+        <!-- ============================================ -->
+        <!-- Changes to configuration (configuration.php) -->
+        <!-- ============================================ -->
+        <reflexive file="${dir.bundle}/configuration.php">
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="\$db\s.*" replace="$db = '${db.name}';"/>
+                    <regexp pattern="\$user\s.*" replace="$user = '${local.db.user}';"/>
+                    <regexp pattern="\$password\s.*" replace="$password = '${local.db.password}';"/>
+                    <regexp pattern="\$dbprefix\s.*" replace="$dbprefix = '${db.dbprefix}';"/>
+                    <regexp pattern="\$mailfrom\s.*" replace="$mailfrom = '${mail.mailfrom}';"/>
+                    <regexp pattern="\$fromname\s.*" replace="$fromname = '${mail.fromname}';"/>
+                    <regexp pattern="\$lifetime\s.*" replace="$lifetime = '${lifetime}';"/>
+                    <regexp pattern="\$log_path\s.*" replace="$log_path = '${path.logs}';"/>
+                    <regexp pattern="\$tmp_path\s.*" replace="$tmp_path = '${path.tmp}';"/>
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
+        <!-- End make root files  -->
+    </target>
+
+
+
+    <target name="prepare">
+        <property file="properties/system.properties" />
+        <property file="properties/users.properties" />
+        <property file="properties/project.properties" />
+        <resolvepath propertyName="dir.bundle.absolute_path" file="${project.basedir}/${dir.bundle}"/>
+        <!--<input propertyName="cms" defaultValue="joomla" message="Specify the CMS " promptChar=":" validArgs="joomla"/>-->
+        <phingcall target="${cms}-prepare"/>
+    </target>
+</project>

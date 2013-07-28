@@ -1,0 +1,17 @@
+user::rwx
+user:www-data:rwx
+user:shimarulin:rwx
+group::r-x
+group:www-data:r-x
+group:shimarulin:r-x
+mask::rwx
+other::---
+default:user::rwx
+default:user:www-data:rwx
+default:user:shimarulin:rwx
+default:group::r-x
+default:group:www-data:r-x
+default:group:shimarulin:r-x
+default:mask::rwx
+default:other::---
+

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Joomla development tools" default="newExtension" basedir="../">
+    <target name="newExtension">
+        <property file="/properties/old/userinfo.properties"/>
+        <property file="/properties/old/extensions.properties"/>
+        <input propertyName="type" defaultValue="file" message="Specify the type of extension " promptChar=":" validArgs="component,file,language,library,module,package,plugin,template"/>
+        <input propertyName="name" message="Enter the extension name" promptChar=":"/>
+        <input propertyName="method" defaultValue="upgrade" message="Enter the installation method" promptChar=":"/>
+        <input propertyName="version" defaultValue="0.0.1" message="Enter the version" promptChar=":"/>
+        <input propertyName="description" defaultValue="Default description" message="Enter the description" promptChar=":"/>
+        <exec command="date -R" outputProperty="creationDate"/>
+
+        <!-- Определяем зависимые от типа параметры -->
+        <if>
+            <equals arg1="${type}" arg2="component"/>
+            <then>
+                <property name="prefix" value="com_" override="true"/>
+                <property name="manifest" value="" override="true"/>
+            </then>
+
+            <elseif>
+                <equals arg1="${type}" arg2="file"/>
+                <then>
+                    <property name="prefix" value="" override="true"/>
+                    <property name="manifest" value="" override="true"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <equals arg1="${type}" arg2="language"/>
+                <then>
+                    <property name="prefix" value="" override="true"/>
+                    <property name="manifest" value="" override="true"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <equals arg1="${type}" arg2="library"/>
+                <then>
+                    <property name="prefix" value="" override="true"/>
+                    <property name="manifest" value="" override="true"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <equals arg1="${type}" arg2="module"/>
+                <then>
+                    <property name="prefix" value="mod_" override="true"/>
+                    <input propertyName="client" defaultValue="site" message="Specify side of this module " promptChar=":" validArgs="site,administrator"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <equals arg1="${type}" arg2="package"/>
+                <then>
+                    <property name="prefix" value="" override="true"/>
+                    <property name="manifest" value="manifest.xml" override="true"/>
+                    <property name="dir.extension" value="${dir.source}" override="true"/>
+                </then>
+            </elseif>
+
+            <elseif>
+                <equals arg1="${type}" arg2="plugin"/>
+                <then>
+                    <property name="prefix" value="" override="true"/>
+                    <input propertyName="group" message="Specify group of this plugin " promptChar=":"/>
+                    <!--<property name="langfile" value="${prefix}${group}_${name}" override="true"/>-->
+                    <!--<property name="name.system" value="${prefix}${group}_${name}" override="true"/>-->
+                </then>
+            </elseif>
+
+            <elseif>
+                <equals arg1="${type}" arg2="template"/>
+                <then>
+                    <property name="prefix" value="" override="true"/>
+                    <property name="manifest" value="templateDetails.xml" override="true"/>
+                </then>
+            </elseif>
+        </if>
+
+        <!-- Копирование общих файлов -->
+        <mkdir dir="${dir.extension}"/>
+
+
+        <!-- Пакет строится из уже готовых расширений, поэтому для него файловая структура отличается -->
+        <if>
+            <equals arg1="${type}" arg2="package"/>
+            <then>
+            </then>
+            <else>
+                <copy file="${project.basedir}/templates/common/en-GB.ini" tofile="${dir.extension}/language/en-GB/en-GB.${langfile}.ini"/>
+                <copy file="${project.basedir}/templates/common/en-GB.sys.ini" tofile="${dir.extension}/language/en-GB/en-GB.${langfile}.sys.ini"/>
+                <copy file="${project.basedir}/templates/common/ru-RU.ini" tofile="${dir.extension}/language/ru-RU/ru-RU.${langfile}.ini"/>
+                <copy file="${project.basedir}/templates/common/ru-RU.sys.ini" tofile="${dir.extension}/language/ru-RU/ru-RU.${langfile}.sys.ini"/>
+                <!-- Копирование специфических файлов -->
+                <copy todir="${dir.extension}">
+                    <fileset dir="${project.basedir}/templates/${type}" includes="**" excludes="mainfile.php"/>
+                </copy>
+                <copy file="${project.basedir}/templates/${type}/mainfile.php" tofile="${dir.extension}/${prefix}${name}.php"/>
+            </else>
+        </if>
+
+
+
+        <!--
+        #########################
+        Обработка файла манифеста
+        #########################
+        -->
+        <exec command='php ./bin/manifest.php
+        "${dir.extension}"
+        "${manifest}"
+        "${mainfile}"
+        "${name.system}"
+        "${type}"
+        "${forVersion}"
+        "${method}"
+        "${client}"
+        "${group}"
+        "${name}"
+        "${author}"
+        "${authorEmail}"
+        "${authorUrl}"
+        "${copyright}"
+        "${license}"
+        "${version}"
+        "${creationDate}"
+        "${description}"
+        ""
+        ""
+        ""
+        '/>
+    </target>
+</project>
